@@ -11,8 +11,6 @@ const App = () => {
             <Route path='/' element={<ProductsPage/>}/>
             <Route path='/product/:id' element={<ProductPage/>}/>
             <Route path='/product-create' element={<ProductCreate/>}/>
-
-            <Route path='*' element={<Navigate to="/" replace />} />
         </Routes>
     );
 };

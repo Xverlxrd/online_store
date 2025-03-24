@@ -1,14 +1,17 @@
-import {createRoot} from "react-dom/client";
-import {BrowserRouter, HashRouter} from "react-router-dom";
+import React from 'react';
+import ReactDOM from 'react-dom/client';
+import {HashRouter} from "react-router-dom";
 import App from "./components/App/App";
 import './style.scss';
 
-const root = document.getElementById('root')
-const container = createRoot(root)
+const root = ReactDOM.createRoot(
+    document.getElementById('root') as HTMLElement
+);
 
-
-container.render(
-    <HashRouter>
-        <App />
-    </HashRouter>
-)
+root.render(
+    <React.StrictMode>
+        <HashRouter basename="/AlphaEcosystemTestWork">
+            <App />
+        </HashRouter>
+    </React.StrictMode>
+);

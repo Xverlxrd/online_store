@@ -1,4 +1,4 @@
-import React, {useCallback, useEffect, useMemo, useState} from 'react';
+import React, {useEffect, useMemo, useState} from 'react';
 import classes from './ProductsList.module.scss';
 import {useProductsStore} from "../../../store/ProductStore";
 import ProductCard from "../ProductCard/ProductCard";

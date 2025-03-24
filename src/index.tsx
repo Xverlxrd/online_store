@@ -8,7 +8,7 @@ const container = createRoot(root)
 
 
 container.render(
-    <BrowserRouter>
+    <BrowserRouter basename="/AlphaEcosystemTestWork">
         <App/>
     </BrowserRouter>
 )

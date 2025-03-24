@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
-  "homepage": "https://xverlxrd.github.io/AlphaEcosystemTestWork",
+  "homepage": "/AlphaEcosystemTestWork/",
   "scripts": {
     "start": "webpack serve --env mode=development",
     "build:dev": "webpack --env mode=development",

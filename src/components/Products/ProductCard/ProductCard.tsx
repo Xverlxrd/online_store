@@ -17,9 +17,17 @@ interface ProductCardProps {
 
 const MAX_TITLE_LENGTH = 30;
 const MAX_DESCRIPTION_LENGTH = 100;
+const PLACEHOLDER_IMAGE = 'https://upload.wikimedia.org/wikipedia/commons/9/9a/%D0%9D%D0%B5%D1%82_%D1%84%D0%BE%D1%82%D0%BE.png';
+
 
 const ProductCard = ({product}: ProductCardProps) => {
     const {deleteProduct, toggleLike} = useProductsStore()
+    const [imageError, setImageError] = React.useState(false);
+
+    const handleImageError = () => {
+        setImageError(true);
+    };
+
     const truncateText = (text: string, maxLength: number) => {
         if (text.length <= maxLength) return text;
         return text.substring(0, maxLength) + '...';
@@ -42,8 +50,10 @@ const ProductCard = ({product}: ProductCardProps) => {
             <div className={classes.card}>
                 <img
                     className={classes.card_image}
-                    src={product.image}
+                    src={imageError ? PLACEHOLDER_IMAGE : product.image}
                     alt={product.title}
+                    onError={handleImageError}
+                    loading="lazy"
                 />
 
                 <div className={classes.card_content}>

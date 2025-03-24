@@ -1,5 +1,5 @@
 import {createRoot} from "react-dom/client";
-import {BrowserRouter} from "react-router-dom";
+import {BrowserRouter, HashRouter} from "react-router-dom";
 import App from "./components/App/App";
 import './style.scss';
 
@@ -8,7 +8,7 @@ const container = createRoot(root)
 
 
 container.render(
-    <BrowserRouter basename="/AlphaEcosystemTestWork">
-        <App/>
-    </BrowserRouter>
+    <HashRouter>
+        <App />
+    </HashRouter>
 )

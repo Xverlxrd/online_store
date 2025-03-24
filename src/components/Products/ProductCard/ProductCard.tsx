@@ -1,35 +1,53 @@
-import React, {useState} from 'react';
+import React from 'react';
 import classes from './ProductCard.module.scss'
-import {Product} from "../../../types/product";
-import {HeartFilled, RestOutlined} from "@ant-design/icons";
+import {DeleteOutlined, HeartFilled} from "@ant-design/icons";
 import {useProductsStore} from "../../../store/ProductStore";
 
-interface ProductCard {
-    product: Product,
+interface ProductCardProps {
+    product: {
+        id: number;
+        title: string;
+        price: number;
+        description: string;
+        image: string;
+        like: boolean;
+    };
 }
+const MAX_TITLE_LENGTH = 30;
+const MAX_DESCRIPTION_LENGTH = 100;
 
-const ProductCard = ({product}:ProductCard) => {
-    const {deleteProduct} = useProductsStore()
-    const [like, setLike] = useState(false);
-
+const ProductCard = ({product}:ProductCardProps) => {
+    const {deleteProduct, toggleLike} = useProductsStore()
+    const truncateText = (text: string, maxLength: number) => {
+        if (text.length <= maxLength) return text;
+        return text.substring(0, maxLength) + '...';
+    };
 
     return (
         <div className={classes.card}>
             <img
                 className={classes.card_image}
-                src={product?.image}
-                alt={'PRODUCT_IMAGE'}
+                src={product.image}
+                alt={product.title}
             />
-            <h2 className={classes.card_title}>{product?.title}</h2>
-            <p className={classes.card_description}>{product?.description}</p>
-            <h3 className={classes.card_price}>{product?.price}</h3>
+
+            <div className={classes.card_content}>
+                <h2 className={classes.card_title}>
+                    {truncateText(product.title, MAX_TITLE_LENGTH)}
+                </h2>
+                <p className={classes.card_description}>
+                    {truncateText(product.description, MAX_DESCRIPTION_LENGTH)}
+                </p>
+                <h3 className={classes.card_price}>${product.price.toFixed(2)}</h3>
+            </div>
+
             <div className={classes.card_btns}>
                 <HeartFilled
-                    onClick={() => setLike(!like)}
-                    className={like ? classes.card_btns__like : classes.card_btns__notlike}
+                    onClick={() => toggleLike(product.id)}
+                    className={product.like ? classes.card_btns__like : classes.card_btns__notlike}
                 />
-                <RestOutlined
-                    onClick={() => deleteProduct(product?.id)}
+                <DeleteOutlined
+                    onClick={() => deleteProduct(product.id)}
                     className={classes.card_btns__delete}
                 />
             </div>

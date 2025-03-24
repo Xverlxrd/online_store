@@ -1,6 +1,5 @@
 # AlphaEcosystemTestWork
 
-![Project Preview](https://via.placeholder.com/800x400?text=AlphaEcosystem+Preview)
 
 A React application, built with TypeScript, Zustand, and Ant Design.
 

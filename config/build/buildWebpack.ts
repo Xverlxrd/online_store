@@ -15,7 +15,9 @@ export function buildWebpack(options: BuildOptions): webpack.Configuration {
         output: {
             path: paths.output,
             filename: '[name].[contenthash].js',
-            clean: true
+            publicPath: isDev ? '/' : '/AlphaEcosystemTestWork/',
+            clean: true,
+            assetModuleFilename: 'static/media/[name].[hash][ext]'
         },
         plugins: buildPlugins(options),
         module: {

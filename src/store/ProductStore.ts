@@ -1,5 +1,5 @@
-import { create } from 'zustand';
-import { Product } from '../types/product';
+import {create} from 'zustand';
+import {Product} from '../types/product';
 import ProductService from "../services/ProductService";
 
 interface ProductWithLike extends Product {
@@ -8,6 +8,7 @@ interface ProductWithLike extends Product {
 
 interface ProductsState {
     products: ProductWithLike[];
+    addNewProduct: (product: Product) => void;
     filteredProducts: ProductWithLike[];
     filterLiked: boolean;
     deleteProduct: (productId: number) => void;
@@ -16,6 +17,8 @@ interface ProductsState {
     loading: boolean;
     error: string | null;
     fetchProducts: () => Promise<void>;
+    initialized: boolean;
+
 }
 
 export const useProductsStore = create<ProductsState>((set, get) => ({
@@ -24,6 +27,7 @@ export const useProductsStore = create<ProductsState>((set, get) => ({
     filterLiked: false,
     loading: false,
     error: null,
+    initialized: false,
 
     deleteProduct: (productId) => {
         const newProducts = get().products.filter(product => product.id !== productId);
@@ -33,9 +37,21 @@ export const useProductsStore = create<ProductsState>((set, get) => ({
         });
     },
 
+    addNewProduct: (product: ProductWithLike) => {
+        set((state) => {
+            const newProducts = [product, ...state.products];
+            return {
+                products: newProducts,
+                filteredProducts: state.filterLiked
+                    ? newProducts.filter(p => p.like)
+                    : newProducts,
+            };
+        });
+    },
+
     toggleLike: (productId) => {
         const newProducts = get().products.map(product =>
-            product.id === productId ? { ...product, like: !product.like } : product
+            product.id === productId ? {...product, like: !product.like} : product
         );
         set({
             products: newProducts,
@@ -54,7 +70,9 @@ export const useProductsStore = create<ProductsState>((set, get) => ({
     },
 
     fetchProducts: async () => {
-        set({ loading: true, error: null });
+        if (get().initialized) return;
+
+        set({loading: true, error: null});
         try {
             const products = await ProductService.getAllProducts();
             const productsWithLike = products.map(product => ({
@@ -64,11 +82,11 @@ export const useProductsStore = create<ProductsState>((set, get) => ({
             set({
                 products: productsWithLike,
                 filteredProducts: productsWithLike,
-                loading: false
+                loading: false,
+                initialized: true
             });
         } catch (error) {
-            set({ error: 'Failed to fetch products', loading: false });
-            console.error('Error fetching products:', error);
+            set({error: 'Failed to fetch products', loading: false});
         }
     },
 }));

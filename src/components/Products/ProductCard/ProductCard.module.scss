@@ -1,0 +1,52 @@
+.card {
+  min-width: 300px;
+  max-width: 400px;
+  max-height: 600px;
+  height: 100%;
+  border: 2px solid black;
+  padding: 20px;
+  border-radius: 16px;
+  color: black;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+
+  &_image {
+    width: 200px;
+    height: 200px;
+  }
+
+  &_title {
+    font-size: 24px;
+  }
+  &_description {
+    font-size: 16px;
+  }
+  &_price {
+    font-size: 24px;
+  }
+  &_btns {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+
+    &__notlike {
+      cursor: pointer;
+      font-size: 30px;
+    }
+    &__like {
+      cursor: pointer;
+      font-size: 30px;
+      color: red;
+    }
+    &__delete {
+      cursor: pointer;
+      font-size: 30px;
+    }
+    &__delete:hover {
+      color: red;
+    }
+  }
+}
+

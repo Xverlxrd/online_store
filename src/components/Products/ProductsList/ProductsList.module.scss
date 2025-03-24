@@ -1,0 +1,20 @@
+.wrapper {
+  position: relative;
+  border-radius: 16px;
+  min-width:700px;
+  width: 1400px;
+  height: 700px;
+  background-color: white;
+  padding: 15px;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  row-gap: 40px;
+  overflow-y: scroll;
+}
+
+.loading {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+}

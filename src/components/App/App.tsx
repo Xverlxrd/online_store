@@ -8,7 +8,7 @@ const App = () => {
 
     return (
         <Routes>
-            <Route path='/AlphaEcosystemTestWork' element={<ProductsPage/>}/>
+            <Route path='/' element={<ProductsPage/>}/>
             <Route path='/product/:id' element={<ProductPage/>}/>
             <Route path='/product-create' element={<ProductCreate/>}/>
         </Routes>
